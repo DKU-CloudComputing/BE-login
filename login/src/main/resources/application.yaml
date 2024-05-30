@@ -1,0 +1,23 @@
+spring:
+  application:
+    name:
+      login
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:3306/login
+    username: root
+    password: root
+server:
+  servlet:
+    session:
+      cookie:
+        http-only: false
+  port:
+    8080
