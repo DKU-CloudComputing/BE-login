@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        JAVA_HOME = '/usr/lib/jvm/java-11-openjdk-arm64'
-        GRADLE_HOME = '/usr/share/gradle'
-    }
-
     stages {
 
         stage('Checkout') {
