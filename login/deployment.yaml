@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: springboot-login-deployment
+  namespace: springboot-login
+spec:
+  selector:
+    matchLabels:
+      app: springboot-login
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: springboot-login
+    spec:
+      containers:
+        - image: dipic/springboot-login-image:latest
+          name: springboot-login
+          ports:
+            - containerPort: 8080
+              name: springboot-login
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mariadb://db-login-service.db-login.svc.cluster.local:3306/login
+            - name: SPRING_DATASOURCE_USERNAME
+              value: root
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: root
