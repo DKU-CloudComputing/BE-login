@@ -1,0 +1,54 @@
+pipeline {
+    agent any
+
+    environment {
+        JAVA_HOME = '/usr/lib/jvm/java-11-openjdk-arm64'
+        GRADLE_HOME = '/usr/share/gradle'
+    }
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh './gradlew clean build'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh './gradlew test'
+            }
+        }
+
+        stage('Docker Build and Push') {
+            steps {
+                sh 'docker build -t dipic/login-image .'
+                sh 'docker push dipic/login-image'
+            }
+        }
+
+        stage('Kubernetes Deploy') {
+            steps {
+                sh 'kubectl apply -f deployment.yaml'
+                sh 'kubectl apply -f service.yaml'
+            }//end steps
+        }//end stage
+
+    }//end stages
+
+    post {
+        success {
+            echo 'Build successful! Deploying...'
+        }
+        failure {
+            echo 'Build failed! Not deploying.'
+        }
+    }//end post
+
+}//end pipeline
