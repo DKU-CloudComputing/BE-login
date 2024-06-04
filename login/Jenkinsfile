@@ -5,11 +5,6 @@ pipeline {
         }
     }
 
-    tools{
-        gradle 'gradle'
-        jdk 'jdk'
-    }
-
     stages {
 
         stage('Checkout') {
