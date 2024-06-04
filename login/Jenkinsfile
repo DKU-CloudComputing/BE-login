@@ -1,8 +1,13 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'gradle:latest' // Gradle 이미지 사용
+        }
+    }
 
     tools{
         gradle 'gradle'
+        jdk 'jdk'
     }
 
     stages {
@@ -15,6 +20,7 @@ pipeline {
 
         stage('Build') {
             steps {
+                sh 'gradle wrapper' // Gradle wrapper 생성
                 sh './gradlew clean build'
             }
         }
