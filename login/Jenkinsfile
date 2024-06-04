@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    tools{
+        gradle 'gradle'
+        docker 'docker'
+    }
+
     stages {
 
         stage('Checkout') {
@@ -11,7 +16,6 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'chmod +x gradlew'
                 sh './gradlew clean build'
             }
         }
@@ -22,12 +26,17 @@ pipeline {
             }
         }
 
-        stage('Docker Build and Push') {
+        stage('Docker Build') {
             steps {
                 sh 'docker build -t dipic/login-image .'
-                sh 'docker push dipic/login-image'
             }
         }
+
+        stage('Docker Push') {
+                    steps {
+                        sh 'docker push dipic/login-image'
+                    }
+                }
 
         stage('Kubernetes Deploy') {
             steps {
