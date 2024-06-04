@@ -67,11 +67,9 @@ pipeline {
         }
     }//end post
 
+}//end pipeline
+
 def fileExists(filename) {
     def file = new File(filename)
     file.exists()
 }
-
-}//end pipeline
-
-
