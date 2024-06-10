@@ -45,7 +45,16 @@ pipeline {
             steps {
                 script {
                     dir('BE-login/login'){
+
+                    sh '''
+                    cd BE-login/login
+                    pwd
+                    ls
+                    docker build -t dipic/login-image .
+                    '''
+
                     docker.build('dipic/login-image')
+
                     }
                 }
             }
