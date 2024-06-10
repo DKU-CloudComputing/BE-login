@@ -10,10 +10,6 @@ pipeline {
         stage('Checkout') {
             steps {
                 checkout scm
-                sh '''
-                rm -rf BE-login
-                git clone https://github.com/DKU-CloudComputing/BE-login.git
-                '''
             }
         }
 
@@ -21,7 +17,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    cd BE-login/login
+                    cd login
                     pwd
                     ls
                     ./gradlew clean build
@@ -34,7 +30,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    cd BE-login/login
+                    cd login
                     ./gradlew test
                     '''
                 }
@@ -44,7 +40,7 @@ pipeline {
         stage('Docker Build') {
             steps {
                 script {
-                    dir('BE-login/login'){
+                    dir('login'){
 
                     sh '''
                     pwd
@@ -69,8 +65,8 @@ pipeline {
         stage('Kubernetes Deploy') {
             steps {
                 script {
-                    sh 'kubectl apply -f BE-login/login/deployment.yaml'
-                    sh 'kubectl apply -f BE-login/login/service.yaml'
+                    sh 'kubectl apply -f login/deployment.yaml'
+                    sh 'kubectl apply -f login/service.yaml'
                 }
             }
         }
@@ -78,10 +74,10 @@ pipeline {
 
     post {
         success {
-            echo 'Build successful! Deploying...'
+            echo 'Build successful!'
         }
         failure {
-            echo 'Build failed! Not deploying.'
+            echo 'Build failed!'
         }
     }
 }
