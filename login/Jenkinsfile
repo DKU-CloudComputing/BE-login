@@ -20,9 +20,10 @@ pipeline {
                 script {
                     sh 'pwd'
                     sh 'ls'
+                    sh 'ls login'
                     sh 'chmod +x BE-login/login/gradlew'
                     sh 'BE-login/login/gradlew init'
-                    sh 'BE-login/login/gradlew clean build'
+                    sh 'BE-login/login/gradlew build'
                 }
             }
         }
