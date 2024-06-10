@@ -11,6 +11,8 @@ pipeline {
             steps {
                 checkout scm
                 sh 'rm -rf BE-login'
+                sh 'rm -rf login'
+                sh 'rm -rf build.gradle.kts gradle gradlew gradlew.bat settings.gradle.kts'
                 sh 'git clone https://github.com/DKU-CloudComputing/BE-login.git'
             }
         }
@@ -18,12 +20,12 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    sh 'pwd'
-                    sh 'ls'
-                    sh 'ls login'
-                    sh 'chmod +x BE-login/login/gradlew'
-                    sh 'BE-login/login/gradlew init'
-                    sh 'BE-login/login/gradlew build'
+                    sh '''
+                    cd BE-login/login
+                    pwd
+                    ls
+                    ./gradlew clean build
+                    '''
                 }
             }
         }
@@ -31,7 +33,10 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    sh 'BE-login/login/gradlew test'
+                    sh '''
+                    cd BE-login/login
+                    ./gradlew test
+                    '''
                 }
             }
         }
