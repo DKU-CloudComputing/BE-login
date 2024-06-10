@@ -21,6 +21,7 @@ pipeline {
                     sh 'pwd'
                     sh 'ls'
                     sh 'chmod +x BE-login/login/gradlew'
+                    sh 'BE-login/login/gradlew init'
                     sh 'BE-login/login/gradlew clean build'
                 }
             }
