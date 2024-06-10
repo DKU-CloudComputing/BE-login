@@ -19,9 +19,9 @@ pipeline {
             steps {
                 script {
                     sh 'cd BE-login/login'
-                    sh 'chmod +x gradlew'
                     sh 'pwd'
                     sh 'ls'
+                    sh 'chmod +x gradlew'
                     sh './gradle clean build'
                 }
             }
