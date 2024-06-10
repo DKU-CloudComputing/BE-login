@@ -4,7 +4,12 @@ def fileExists(filename) {
 }
 
 pipeline {
-    agent any
+    agent {
+            docker {
+                image 'docker:latest' // Docker CLI가 포함된 이미지를 사용
+                args '-v /var/run/docker.sock:/var/run/docker.sock' // Docker 소켓을 마운트
+            }
+        }
 
     stages {
         stage('Checkout') {
