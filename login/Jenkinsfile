@@ -44,8 +44,9 @@ pipeline {
         stage('Docker Build') {
             steps {
                 script {
-                    sh 'apt install docker.io -y'
-                    sh 'docker build -t dipic/login-image BE-login/login/'
+                    dir('BE-login/login'){
+                    docker.build 'dipic/login-image'
+                    }
                 }
             }
         }
