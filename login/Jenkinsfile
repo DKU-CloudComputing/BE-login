@@ -49,9 +49,8 @@ pipeline {
                     sh '''
                     pwd
                     ls
-                    docker.build('dipic/login-image')
                     '''
-
+                    docker.build('dipic/login-image')
 
 
                     }
