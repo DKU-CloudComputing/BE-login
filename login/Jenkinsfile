@@ -45,7 +45,7 @@ pipeline {
             steps {
                 script {
                     dir('BE-login/login'){
-                    docker.build 'dipic/login-image'
+                    docker.build('dipic/login-image')
                     }
                 }
             }
