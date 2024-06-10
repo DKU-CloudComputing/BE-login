@@ -10,7 +10,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 checkout scm
-                sh 'rm BE-login'
+                sh 'rm -rf BE-login'
                 sh 'git clone https://github.com/DKU-CloudComputing/BE-login.git'
             }
         }
