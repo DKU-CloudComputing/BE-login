@@ -10,10 +10,10 @@ pipeline {
         stage('Checkout') {
             steps {
                 checkout scm
-                sh 'rm -rf BE-login'
-                sh 'rm -rf login'
-                sh 'rm -rf build.gradle.kts gradle gradlew gradlew.bat settings.gradle.kts'
-                sh 'git clone https://github.com/DKU-CloudComputing/BE-login.git'
+                sh '''
+                rm -rf BE-login
+                git clone https://github.com/DKU-CloudComputing/BE-login.git
+                '''
             }
         }
 
@@ -22,8 +22,6 @@ pipeline {
                 script {
                     sh '''
                     cd BE-login/login
-                    pwd
-                    ls
                     ./gradlew clean build
                     '''
                 }
@@ -44,7 +42,7 @@ pipeline {
         stage('Docker Build') {
             steps {
                 script {
-                    sh 'docker --version'
+                    sh 'sudo apt install docker.io -y'
                     sh 'docker build -t dipic/login-image BE-login/login/'
                 }
             }
