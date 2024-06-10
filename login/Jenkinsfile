@@ -18,11 +18,10 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    sh 'cd BE-login/login'
                     sh 'pwd'
                     sh 'ls'
-                    sh 'chmod +x gradlew'
-                    sh './gradle clean build'
+                    sh 'chmod +x BE-login/login/gradlew'
+                    sh 'BE-login/login/gradlew clean build'
                 }
             }
         }
