@@ -22,6 +22,7 @@ pipeline {
                 script {
                     sh '''
                     cd BE-login/login
+                    ls
                     ./gradlew clean build
                     '''
                 }
@@ -42,7 +43,7 @@ pipeline {
         stage('Docker Build') {
             steps {
                 script {
-                    sh 'sudo apt install docker.io -y'
+                    sh 'apt install docker.io -y'
                     sh 'docker build -t dipic/login-image BE-login/login/'
                 }
             }
