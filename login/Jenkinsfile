@@ -4,11 +4,7 @@ def fileExists(filename) {
 }
 
 pipeline {
-    agent {
-            docker {
-                image 'docker:latest' // Docker CLI가 포함된 이미지를 사용
-            }
-        }
+    agent any
 
     stages {
         stage('Checkout') {
