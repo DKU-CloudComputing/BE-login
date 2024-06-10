@@ -22,6 +22,7 @@ pipeline {
                 script {
                     sh '''
                     cd BE-login/login
+                    pwd
                     ls
                     ./gradlew clean build
                     '''
