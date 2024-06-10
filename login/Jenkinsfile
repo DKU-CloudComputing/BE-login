@@ -17,6 +17,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
+                    sh 'cd BE-login/login'
                     sh './gradlew clean build'
                 }
             }
