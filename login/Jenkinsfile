@@ -10,17 +10,13 @@ pipeline {
         stage('Checkout') {
             steps {
                 checkout scm
+                sh 'git clone https://github.com/DKU-CloudComputing/BE-login.git'
             }
         }
 
         stage('Build') {
             steps {
                 script {
-                    // Gradle wrapper 스크립트 실행 전에 파일 유무 확인
-                    if (!fileExists('gradlew')) {
-                        sh 'gradle wrapper --gradle-version=7.0.2 --distribution-type=bin'
-                    }
-                    // Gradle 빌드 실행
                     sh './gradlew clean build'
                 }
             }
@@ -29,7 +25,6 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    // 테스트 실행
                     sh './gradlew test'
                 }
             }
