@@ -33,6 +33,7 @@ pipeline {
                     pwd
                     ls
                     docker build -t dipic/login-image .
+
                     '''
                 }
             }
