@@ -1,12 +1,8 @@
-def fileExists(filename) {
-    def file = new File(filename)
-    file.exists()
-}
-
 pipeline {
     agent any
 
     stages {
+
         stage('Checkout') {
             steps {
                 checkout scm
@@ -15,39 +11,29 @@ pipeline {
 
         stage('Build') {
             steps {
-                script {
-                    sh '''
-                    cd login
-                    pwd
-                    ls
-                    ./gradlew clean build
-                    '''
+                dir('login'){
+                    sh './gradlew clean build'
                 }
             }
         }
 
         stage('Test') {
             steps {
-                script {
-                    sh '''
-                    cd login
-                    ./gradlew test
-                    '''
+                dir('login'){
+                    sh './gradlew test'
                 }
             }
         }
 
         stage('Docker Build') {
             steps {
-                script {
-                    dir('login'){
+                dir('login'){
 
                     sh '''
                     pwd
                     ls
+                    docker build -t dipic/login-image .
                     '''
-                    docker.build('dipic/login-image').push('latest')
-                    }
                 }
             }
         }
@@ -72,10 +58,10 @@ pipeline {
 
     post {
         success {
-            echo 'Build successful!'
+            echo 'Build successed'
         }
         failure {
-            echo 'Build failed!'
+            echo 'Build failed'
         }
     }
 }
