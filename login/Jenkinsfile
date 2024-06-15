@@ -11,7 +11,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                dir('login'){
+                dir('login') {
                     sh './gradlew clean build'
                 }
             }
@@ -19,7 +19,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                dir('login'){
+                dir('login') {
                     sh './gradlew test'
                 }
             }
@@ -27,43 +27,29 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                dir('login'){
-
-                    sh '''
-                    pwd
-                    ls
-                    docker build -t dipic/login-image .
-
-                    '''
+                dir('login') {
+                    sh 'docker build -t dipic/login-image .'
                 }
             }
         }
 
         stage('Docker Push') {
             steps {
-                script {
+                dir('login') {
                     sh 'docker push dipic/login-image'
                 }
             }
         }
 
-        stage('Kubernetes Deploy') {
-            steps {
-                script {
-
-                    sh 'kubectl apply -f login/deployment.yaml'
-                    sh 'kubectl apply -f login/service.yaml'
-                }
-            }
-        }
     }
 
     post {
         success {
-            echo 'Build successed'
+            echo 'Job successed'
         }
         failure {
-            echo 'Build failed'
+            echo 'Job failed'
         }
     }
+
 }
