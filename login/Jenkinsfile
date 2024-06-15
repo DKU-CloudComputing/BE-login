@@ -49,6 +49,7 @@ pipeline {
         stage('Kubernetes Deploy') {
             steps {
                 script {
+
                     sh 'kubectl apply -f login/deployment.yaml'
                     sh 'kubectl apply -f login/service.yaml'
                 }
